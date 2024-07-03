@@ -18,4 +18,3 @@ class TwilioSms
                              to: @mobile_number 
                            ) 
 	 end
-end

@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-   before_create :set_jti
+  before_create :set_jti
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include Devise::JWT::RevocationStrategies::JTIMatcher
@@ -20,9 +20,19 @@ class User < ApplicationRecord
     # Your logic to generate or return the jti
   end
 
+
+
+  private
+
+  def set_jti
+    self.jti = SecureRandom.uuid
+  end
+
+  
   # def jwt_payload
   #      debugger
   #   super.merge('foo' => 'bar')
   # end
 end
+
 
