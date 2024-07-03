@@ -1,0 +1,101 @@
+<style>
+	.abc{
+		display: flex;
+		justify-content: space-between;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+</style>
+
+
+<div class="abc">
+<div class="split left">
+	<div class="centered">
+
+		<h1>previous address  </h1> 
+    
+  		<div>
+      <%= form_with model: @order, url: assign_address_path, method: 'put', local: true do |form| %>   
+  			<% @addresses.each do |address| %>  
+        <div class="container border">
+          <%= form.radio_button :address_id, address.id %>
+            <%= address.full_name %> ,
+            <%= address.phone_number %> ,
+            pi_code: <%= address.pin_code %> ,
+            <%= address.district %> ,
+            <%= address.state %> ,
+            <%= address.city %> ,
+            <%= address.house_no %> ,
+            <%= address.colony_name %> 
+            <%= link_to 'delete', carts_address_destroy_path(address_id: address.id), method: :delete %>
+            <!-- data: { "turbo-method": :delete } -->
+          <br/><br/><br/>
+        </div>
+        <% end %>
+        <%= form.submit 'Next' %>
+      <% end %>
+  		</div>
+    
+		
+
+	</div>
+</div>
+
+
+
+<div class="split right">
+  <div class="centered">
+  <%= form_with model: @new_address, url: carts_address_create_path, local: true do |form| %>
+	 <h2>New Address</h2>
+	<div>
+		<%= form.label :full_name %><br>
+		<%= form.text_field :full_name %>
+	</div>
+
+	<div>
+		<%= form.label :phone_number %><br>
+		<%= form.text_field :phone_number %>
+	</div>
+
+	<div>
+		<%= form.label :pin_code %><br>
+		<%= form.text_field :pin_code %>
+	</div>
+
+
+	<div>
+		<%= form.label :district %><br>
+		<%= form.text_field :district %>
+	</div>
+
+	
+	<div>
+		<%= form.label :state %><br>
+		<%= form.text_field :state %>
+	</div>
+
+	<div>
+		<%= form.label :city %><br>
+		<%= form.text_field :city %>
+	</div>
+
+	<div>
+		<%= form.label :house_no %><br>
+		<%= form.text_field :house_no %>
+	</div>
+
+	<div>
+		<%= form.label :colony_name %><br>
+		<%= form.text_field :colony_name %>
+	</div>
+	
+	<div>
+		<%= form.submit %>
+	</div>
+  <% end %>
+
+  </div>
+</div>
+</div>
+	

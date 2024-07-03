@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ShopOnline</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body>
+    
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <%= link_to 'Shop-Online', root_path, class:"navbar-brand" %>
+  <div class="container-fluid">
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <%= link_to "Users", home_users_path, class:"nav-link" %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to "About Us", home_about_path, class:"nav-link" %>
+        </li>
+
+
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Edit Profile", edit_user_registration_path, class:"nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Cart", cart_path, class:"nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= @email %>
+          </li>
+          
+         <% else %>
+          <li class="nav-item">
+          <%= link_to "Sign Up", new_user_registration_path, class:"nav-link" %>
+          </li>
+
+          <li class="nav-item">
+          <%= link_to "Sign In", new_user_session_path, class:"nav-link" %>
+          </li> 
+        <% end %>    
+
+      </ul>
+
+  <form class="d-flex">
+    <%= form_with url: '/home/index', method: :get, local: true do |form| %>
+        <div class="form-group">
+          <%= form.text_field :search, class: "form-control", style: "height: 3rem" %>
+        </div>
+        <div class="form-group">
+          <%= form.submit "Search", class: "btn btn-primary btn-lg"%>&nbsp &nbsp &nbsp 
+        </div>
+    <% end %> 
+  </form>
+
+    </div>
+
+  <form class="d-flex">
+    <%= form_with url: '/home/index', method: :get, local: true do |form| %>
+        <h6 style="color:white;">Categories :</h6> &nbsp
+        <div class="form-group">
+          <%= form.collection_select(:category_id, Category.all, :id, :name, {include_blank: true} , onchange: "this.form.submit();")  %>
+        </div> &nbsp &nbsp
+    <% end %> 
+  </form>
+  <h6><%= link_to "go to Home", root_url%></h6>
+  </div> &nbsp
+
+</nav>
+
+<%= @email %>
+
+    <% if notice.present? %><p class="notice"><%= notice %></p><% end %>
+    <% if alert.present? %><p class="alert"><%= alert %></p><% end %>
+    <br/>
+    <br/>
+    <div style="padding:20px;">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+

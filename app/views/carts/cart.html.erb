@@ -1,0 +1,52 @@
+<% if @order.present? %>
+	<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>      
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <% @order.order_items.each do |order_item| %>
+  <tbody>
+    <tr>
+      <th scope="row"><%= order_item.product.name %></th>
+      <td><%= order_item.quantity %></td>
+      <td><%= order_item.price %></td>
+      
+      
+      <td>
+        <%#= link_to 'Remove item', remove_order_item_path(order_item), method: :delete, data: { confirm: "Are you sure?" } %>
+        <%= link_to 'Remove item', remove_order_item_path(order_item), data: { method: :delete } %>
+      </td>
+    </tr>
+    <% end %>  
+      <th scope="row"></th>
+      <th scope="row"></th>
+      <td colspan="2">Total price: <%= @order.total %></td>
+    </tr>
+  </tbody>
+</table>
+
+	<% else %>
+
+		<div>
+			<h1>There is no any item selected </h1>
+		</div>
+	<% end %>
+
+
+<br>
+
+<%= link_to "Next", carts_address_path %>
+
+
+
+	
+
+
+
+
+
+

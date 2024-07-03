@@ -1,0 +1,36 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV["RAILS_DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
+  idle_timeout: <%= ENV["RAILS_IDLE_CONNECTION"] ||  60 %>
+  port: <%= ENV['RAILS_DATABASE_PORT'] || 5432 %>
+
+
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+development:
+  <<: *default
+  database: shop_online_development1
+  username: postgres
+  password: sanket
+  host: 'localhost'
+  port: 5432
+  #secret_key_base: ffaf9d8b3cf5de9f4ac69fb1467aca08e72323593021c5d493e28a4fbaa6269a2e6c6770305f9974a62e63d869871d77603af701c8c88fc5327bb63c10f86aa2
+
+test:
+  <<: *default
+  database: shop_online_test1
+  username: postgres
+  password: postgres
+  host: 'localhost'
+  port: 5432
+ # secret_key_base: ffaf9d8b3cf5de9f4ac69fb1467aca08e72323593021c5d493e28a4fbaa6269a2e6c6770305f9974a62e63d869871d77603af701c8c88fc5327bb63c10f86aa2
+
+  production:
+  <<: *default
+  database: shop_online_production1
+  username: postgres
+  password: postgres
+  host: 'localhost'
+  port: 5432
+  secret_key_base: xyz
